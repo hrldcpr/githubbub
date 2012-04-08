@@ -20,7 +20,7 @@ var textPaths = {
 function makeDiv(event, text) {
     var x = Math.floor(80 * Math.random());
     var y = Math.floor(80 * Math.random());
-    return $('<a href="https://github.com/' + event.actor.login + '" title="' + event.actor.login + '"' +
+    return $('<a href="https://github.com/' + event.actor.login + '"' +
 	     ' class="bubble" style="top:' + x + '%; left: ' + y + '%;">' +
 	     '<img src="http://gravatar.com/avatar/' + event.actor.gravatar_id + '?d=retro"/>' +
 	     '<div class="text">' + text + '</div></a>');

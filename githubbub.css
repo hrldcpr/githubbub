@@ -17,14 +17,14 @@ body {
     padding: 5px;
     background: #444444;
     color: white;
-    border-radius: 10px;
+    border-radius: 10px 10px 10px 0px;
 }
 
 .bubble {
     display: block;
     position: absolute;
     background: white;
-    border-radius: 10px;
+    border-radius: 10px 10px 10px 0px;
 }
 
 .bubble:hover {
@@ -34,6 +34,8 @@ body {
 .bubble img {
     float: left;
     margin-right: 5px;
+    border-radius: 10px 0px 0px 0px;
+    overflow: hidden;
 }
 
 .bubble .text {
