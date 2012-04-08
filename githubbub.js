@@ -17,10 +17,15 @@ var textPaths = {
     PullRequestReviewCommentEvent: ['comment', 'body'],
 };
 
+function makeDiv(gravatar_id, text) {
+    return $('<div><img src="http://gravatar.com/avatar/' + gravatar_id + '?d=retro"/>' +
+	     '<p>' + text + '</p></div>');
+}
+
 function makeDivs(event) {
     if (event.type == 'PushEvent') { // contains multiple texts
 	return $.map(event.payload.commits, function(commit) {
-	    divs.push($('<div>' + event.type + ': ' + commit.message + '</div>'));
+	    divs.push(makeDiv(event.actor.gravatar_id, commit.message));
 	});
     }
     var path = textPaths[event.type];
@@ -30,7 +35,7 @@ function makeDivs(event) {
 	    text = text[path[i]];
 	    if (!text) return;
 	}
-	return [$('<div>' + event.type + ': <p>' + text + '</p></div>')];
+	return [makeDiv(event.actor.gravatar_id, text)];
     }
     console.log(event);
 }
@@ -41,10 +46,12 @@ function update() {
 	    if (event.id > maxId) {
 		maxId = event.id;
 		$.each(makeDivs(event) || [], function(i, div) {
-		    $('body').prepend(div);
-		    divs.push(div);
-		    if (divs.length > N)
-			divs.shift().remove();
+		    div.find('img').load(function() {
+			$('body').prepend(div);
+			divs.push(div);
+			if (divs.length > N)
+			    divs.shift().remove();
+		    });
 		});
 	    }
 	});
