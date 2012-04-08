@@ -2,7 +2,7 @@ var N = 20;
 var T = 1000;
 
 var maxId = 0;
-var divs = [];
+var allDivs = [];
 
 var textPaths = {
     CommitCommentEvent: ['comment', 'body'],
@@ -18,18 +18,18 @@ var textPaths = {
 };
 
 function makeDiv(event, text) {
-    var x = Math.floor(100 * Math.random());
-    var y = Math.floor(100 * Math.random());
-    return $('<a href="https://github.com/' + event.actor.login + '">' +
-	     '<div class="bubble" style="top:' + x + '%; left: ' + y + '%;">' +
+    var x = Math.floor(90 * Math.random());
+    var y = Math.floor(90 * Math.random());
+    return $('<a href="https://github.com/' + event.actor.login + '"' +
+	     ' class="bubble" style="top:' + x + '%; left: ' + y + '%;">' +
 	     '<img src="http://gravatar.com/avatar/' + event.actor.gravatar_id + '?d=retro"/>' +
-	     '<p>' + text + '</p></div></a>');
+	     '<div class="text">' + text + '</div></a>');
 }
 
 function makeDivs(event) {
     if (event.type == 'PushEvent') { // contains multiple texts
 	return $.map(event.payload.commits, function(commit) {
-	    divs.push(makeDiv(event, commit.message));
+	    return makeDiv(event, commit.message);
 	});
     }
     var path = textPaths[event.type];
@@ -52,9 +52,14 @@ function update() {
 		$.each(makeDivs(event) || [], function(i, div) {
 		    div.find('img').load(function() {
 			$('#main').append(div);
-			divs.push(div);
-			if (divs.length > N)
-			    divs.shift().remove();
+			allDivs.push(div);
+			if (allDivs.length > N)
+			    allDivs.shift().remove();
+			$.each(allDivs, function(i, div) {
+			    var k = Math.floor(255 * (i + 1) / allDivs.length);
+			    div.css({background: 'rgb(' + k + ',' + k + ',' + k + ')'});
+			    div.find('img').css({opacity: (i + 1) / allDivs.length});
+			});
 		    });
 		});
 	    }

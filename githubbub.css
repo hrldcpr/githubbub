@@ -1,3 +1,8 @@
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
 #main {
     position: absolute;
     width: 100%;
@@ -6,10 +11,17 @@
 }
 
 .bubble {
+    display: block;
     position: absolute;
     background: white;
+    border-radius: 10px;
 }
 
-.bubble a {
-    text-decoration: none;
+.bubble img {
+    float: left;
+    margin-right: 5px;
+}
+
+.text {
+    margin: 5px;
 }
