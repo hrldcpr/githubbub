@@ -51,7 +51,7 @@ function update() {
 		maxId = event.id;
 		$.each(makeDivs(event) || [], function(i, div) {
 		    div.find('img').load(function() {
-			$('#main').append(div);
+			$('body').append(div);
 			allDivs.push(div);
 			if (allDivs.length > N)
 			    allDivs.shift().remove();
