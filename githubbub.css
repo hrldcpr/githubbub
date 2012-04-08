@@ -1,0 +1,15 @@
+#main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
+.bubble {
+    position: absolute;
+    background: white;
+}
+
+.bubble a {
+    text-decoration: none;
+}
