@@ -17,11 +17,15 @@ a {
     border-radius: 10px;
 }
 
+.bubble:hover {
+    z-index: 10;
+}
+
 .bubble img {
     float: left;
     margin-right: 5px;
 }
 
-.text {
-    margin: 5px;
+.bubble .text {
+    margin: 10px;
 }
