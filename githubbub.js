@@ -41,7 +41,7 @@ function makeDivs(event) {
 	}
 	return [makeDiv(event, text)];
     }
-    console.log(event);
+    // console.log(event); // skipped event
 }
 
 function update() {
