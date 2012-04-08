@@ -46,7 +46,7 @@ function makeDivs(event) {
 
 function update() {
     $.get("https://api.github.com/events", {}, function(events) {
-	$.each(events.reverse(), function(i, event) {
+	$.each(events.data.reverse(), function(i, event) {
 	    if (event.id > maxId) {
 		maxId = event.id;
 		$.each(makeDivs(event) || [], function(i, div) {
@@ -65,7 +65,7 @@ function update() {
 	    }
 	});
 	setTimeout(update, T);
-    });
+    }, 'jsonp');
 }
 
 $(function() {
