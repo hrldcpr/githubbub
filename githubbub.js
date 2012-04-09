@@ -3,6 +3,7 @@ var T = 1000;
 
 var maxId = 0;
 var allDivs = [];
+var paused = false;
 
 var textPaths = {
     CommitCommentEvent: ['comment', 'body'],
@@ -45,6 +46,8 @@ function makeDivs(event) {
 }
 
 function update() {
+    if (paused) return;
+
     $.get("https://api.github.com/events", {}, function(events) {
 	$.each(events.data.reverse(), function(i, event) {
 	    if (event.id > maxId) {
@@ -69,5 +72,15 @@ function update() {
 }
 
 $(function() {
+    $(window).keypress(function(e) {
+	if (e.which == 32) {
+	    if (paused) {
+		paused = false;
+		update();
+	    }
+	    else paused = true;
+	}
+    });
+
     setTimeout(update, T);
 });

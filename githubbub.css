@@ -6,6 +6,7 @@ a {
 body {
     background: black;
     font-family: Helvetica, sans-serif;
+    line-height: 1.5;
 }
 
 #header {
@@ -33,7 +34,7 @@ body {
 
 .bubble img {
     float: left;
-    margin-right: 5px;
+    margin-right: 10px;
     border-radius: 10px 0px 0px 0px;
     overflow: hidden;
 }
