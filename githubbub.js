@@ -49,6 +49,8 @@ function update() {
     if (paused) return;
 
     $.get("https://api.github.com/events", {}, function(events) {
+	if (paused) return;
+
 	$.each(events.data.reverse(), function(i, event) {
 	    if (event.id > maxId) {
 		maxId = event.id;
