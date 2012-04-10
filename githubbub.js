@@ -71,6 +71,6 @@ function update() {
 }
 
 $(function() {
-    setTimeout(update, T);
+    update();
     mixpanel.track('view');
 });
