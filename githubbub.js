@@ -47,23 +47,24 @@ function makeDivs(event) {
 
 function update() {
     $.get("https://api.github.com/events", {}, function(events) {
-	$.each(events.data.reverse(), function(i, event) {
+	var divs = $.map(events.data.reverse(), function(event) {
 	    if (event.id > maxId) {
 		maxId = event.id;
-		$.each(makeDivs(event) || [], function(i, div) {
-		    div.find('img').load(function() {
-			$('body').append(div);
-			allDivs.push(div);
-			if (allDivs.length > N)
-			    allDivs.shift().remove();
-			$.each(allDivs, function(i, div) {
-			    var k = Math.floor(255 * (i + 1) / allDivs.length);
-			    div.css({background: 'rgb(' + k + ',' + k + ',' + k + ')'});
-			    div.find('img').css({opacity: (i + 1) / allDivs.length});
-			});
-		    });
-		});
+		return makeDivs(event);
 	    }
+	});
+	$.each(divs, function(_, div) {
+	    div.find('img').load(function() {
+		$('body').append(div);
+		allDivs.push(div);
+		if (allDivs.length > N)
+		    allDivs.shift().remove();
+		$.each(allDivs, function(i, div) {
+		    var k = Math.floor(255 * (i + 1) / allDivs.length);
+		    div.css({background: 'rgb(' + k + ',' + k + ',' + k + ')'});
+		    div.find('img').css({opacity: (i + 1) / allDivs.length});
+		});
+	    });
 	});
 	setTimeout(update, T);
     }, 'jsonp');
