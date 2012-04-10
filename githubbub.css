@@ -5,40 +5,45 @@ a {
 
 body {
     background: black;
-    font-family: Helvetica, sans-serif;
+    overflow: hidden;
+    font-family: courier,monospace;
     line-height: 1.5;
-}
-
-#header {
-    display: block;
-    position: absolute;
-    z-index: 10;
-    top: 5px;
-    left: 5px;
-    padding: 5px;
-    background: #444444;
-    color: white;
-    border-radius: 10px 10px 10px 0px;
 }
 
 .bubble {
     display: block;
     position: absolute;
-    background: white;
     border-radius: 10px 10px 10px 0px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
 }
 
-.bubble:hover {
+#header {
+    z-index: 10;
+    top: 5px;
+    left: 5px;
+    padding: 5px 10px;
+    background: #444444;
+    color: white;
+}
+
+.git {
+    min-height: 80px;
+    min-width: 200px;
+    max-width: 50%;
+}
+
+.git:hover {
     z-index: 10;
 }
 
-.bubble img {
-    float: left;
-    margin-right: 10px;
+.git img {
+    position: absolute;
     border-radius: 10px 0px 0px 0px;
     overflow: hidden;
 }
 
-.bubble .text {
-    margin: 10px;
+.git .text {
+    margin: 10px 10px 10px 90px;
+    font-family: courier,monospace;
+    line-height: 1.5;
 }
