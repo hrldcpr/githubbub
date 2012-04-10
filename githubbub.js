@@ -70,4 +70,7 @@ function update() {
     }, 'jsonp');
 }
 
-$(update);
+$(function() {
+    setTimeout(update, T);
+    mixpanel.track('view');
+});
