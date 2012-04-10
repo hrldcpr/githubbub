@@ -6,7 +6,7 @@ a {
 body {
     background: black;
     overflow: hidden;
-    font-family: courier,monospace;
+    font-family: Courier,monospace;
     line-height: 1.5;
 }
 
@@ -43,6 +43,6 @@ body {
 
 .git .text {
     margin: 10px 10px 10px 90px;
-    font-family: courier,monospace;
+    font-family: Courier,monospace;
     line-height: 1.5;
 }
