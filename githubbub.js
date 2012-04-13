@@ -21,10 +21,12 @@ var textPaths = {
 function makeDiv(event, text) {
     var x = Math.floor(80 * Math.random());
     var y = Math.floor(80 * Math.random());
-    return $('<a href="https://github.com/' + event.actor.login + '"' +
-	     ' class="bubble git" style="top:' + x + '%; left: ' + y + '%;">' +
-	     '<img src="http://gravatar.com/avatar/' + event.actor.gravatar_id + '?d=retro"/>' +
-	     '<pre class="text">' + text + '</pre></a>');
+    var bubble = $('<a href="https://github.com/' + event.actor.login + '"' +
+		   ' class="bubble git" style="top:' + x + '%; left: ' + y + '%;">' +
+		   '<img src="http://gravatar.com/avatar/' + event.actor.gravatar_id + '?d=retro"/>' +
+		   '<pre class="text"></pre></a>');
+    bubble.find('.text').text(text);
+    return bubble;
 }
 
 function makeDivs(event) {
