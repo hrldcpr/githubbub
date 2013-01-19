@@ -48,7 +48,8 @@ function makeDivs(event) {
 }
 
 function update() {
-    $.get("https://api.github.com/events", {}, function(events) {
+    // TODO only start using local proxy after client's direct api connection has been rate-limited
+    $.get("/events", {}, function(events) {
 	var divs = $.map(events.data.reverse(), function(event) {
 	    if (event.id > maxId) {
 		maxId = event.id;
