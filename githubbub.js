@@ -18,11 +18,12 @@ var textPaths = {
     PullRequestReviewCommentEvent: ['comment', 'body'],
 };
 
-function makeDiv(event, text) {
+function makeDiv(event, text, url) {
+    if (!url) url = 'https://github.com/' + event.actor.login;
+
     var x = Math.floor(80 * Math.random());
     var y = Math.floor(80 * Math.random());
-    var bubble = $('<a href="https://github.com/' + event.actor.login + '"' +
-		   ' class="bubble git" style="top:' + x + '%; left: ' + y + '%;">' +
+    var bubble = $('<a href="' + url + '" class="bubble git" style="top:' + x + '%; left: ' + y + '%;">' +
 		   '<img src="http://gravatar.com/avatar/' + event.actor.gravatar_id + '?d=retro"/>' +
 		   '<pre class="text"></pre></a>');
     bubble.find('.text').text(text);
@@ -32,13 +33,14 @@ function makeDiv(event, text) {
 function makeDivs(event) {
     if (event.type === 'PushEvent') { // contains multiple texts
 	return $.map(event.payload.commits, function(commit) {
-	    return makeDiv(event, commit.message);
+            var url = "https://github.com/" + event.repo.name + "commit/" + commit.sha;
+	    return makeDiv(event, commit.message, url);
 	});
     }
     var path = textPaths[event.type];
     if (path) {
 	var text = event.payload;
-	for (var i=0; i<path.length; i++) {
+	for (var i in path) {
 	    text = text[path[i]];
 	    if (!text) return;
 	}
