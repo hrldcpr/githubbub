@@ -30,7 +30,7 @@ function makeDiv(event, text) {
 }
 
 function makeDivs(event) {
-    if (event.type == 'PushEvent') { // contains multiple texts
+    if (event.type === 'PushEvent') { // contains multiple texts
 	return $.map(event.payload.commits, function(commit) {
 	    return makeDiv(event, commit.message);
 	});
@@ -44,7 +44,7 @@ function makeDivs(event) {
 	}
 	return [makeDiv(event, text)];
     }
-    // console.log(event); // skipped event
+    console.log(event); // skipped event
 }
 
 var direct = true; // initially call github api directly
@@ -52,7 +52,7 @@ function update() {
     $.get(direct ? "https://api.github.com/events" : "/events", {}, function(events) {
         if (direct) events = events.data; // when using jsonp, github api nests its response in 'data'
 
-        if (!(events && events.reverse)) { // if events is not an array
+        if (Object.prototype.toString.call(events) !== '[object Array]') {
             if (direct) direct = false; // client IP has probably been rate-limited, so switch to proxy
             events = [];
         }
