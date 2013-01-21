@@ -53,7 +53,12 @@ function update() {
         if (direct) events = events.data; // when using jsonp, github api nests its response in 'data'
 
         if (Object.prototype.toString.call(events) !== '[object Array]') {
-            if (direct) direct = false; // client IP has probably been rate-limited, so switch to proxy
+            if (direct) {
+                // client IP has probably been rate-limited, so switch to proxy immediately:
+                direct = false;
+                update();
+                return;
+            }
             events = [];
         }
 
@@ -77,6 +82,7 @@ function update() {
 		});
 	    });
 	});
+
 	setTimeout(update, T);
     }, direct ? 'jsonp' : 'json');
 }
