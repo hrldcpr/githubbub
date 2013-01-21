@@ -33,7 +33,7 @@ function makeDiv(event, text, url) {
 function makeDivs(event) {
     if (event.type === 'PushEvent') { // contains multiple texts
 	return $.map(event.payload.commits, function(commit) {
-            var url = "https://github.com/" + event.repo.name + "commit/" + commit.sha;
+            var url = "https://github.com/" + event.repo.name + "/commit/" + commit.sha;
 	    return makeDiv(event, commit.message, url);
 	});
     }
