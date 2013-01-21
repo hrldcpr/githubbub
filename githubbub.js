@@ -39,7 +39,7 @@ var urlGetters = {
     IssueCommentEvent: function(event) {
         return event.payload.issue.html_url + '#issuecomment-' + event.payload.comment.id;
     },
-}
+};
 
 function makeDiv(event, text, url) {
     var x = Math.floor(80 * Math.random());
