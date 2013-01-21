@@ -44,7 +44,7 @@ function makeDivs(event) {
 	}
 	return [makeDiv(event, text)];
     }
-    console.log(event); // skipped event
+    //console.log(event); // skipped event
 }
 
 var direct = true; // initially call github api directly
