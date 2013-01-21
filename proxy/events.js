@@ -34,7 +34,7 @@ function pipeGithubEvents(out) {
                     listeners = [];
                 });
             });
-        }
+        } else console.log(' ' + listeners.length + ' listeners');
     }
 }
 
