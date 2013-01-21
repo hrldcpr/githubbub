@@ -47,15 +47,23 @@ function makeDivs(event) {
     // console.log(event); // skipped event
 }
 
+var direct = true; // initially call github api directly
 function update() {
-    // TODO only start using local proxy after client's direct api connection has been rate-limited
-    $.get("/events", {}, function(events) {
+    $.get(direct ? "https://api.github.com/events" : "/events", {}, function(events) {
+        if (direct) events = events.data; // when using jsonp, github api nests its response in 'data'
+
+        if (!(events && events.reverse)) { // if events is not an array
+            if (direct) direct = false; // client IP has probably been rate-limited, so switch to proxy
+            events = [];
+        }
+
 	var divs = $.map(events.reverse(), function(event) {
 	    if (event.id > maxId) {
 		maxId = event.id;
 		return makeDivs(event);
 	    }
 	});
+
 	$.each(divs, function(_, div) {
 	    div.find('img').load(function() {
 		$('body').append(div);
@@ -70,7 +78,7 @@ function update() {
 	    });
 	});
 	setTimeout(update, T);
-    }, 'json');
+    }, direct ? 'jsonp' : 'json');
 }
 
 $(function() {
