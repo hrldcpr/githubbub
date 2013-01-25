@@ -117,8 +117,13 @@ function update() {
 	    });
 	});
 
-	setTimeout(update, T);
-    }, direct ? 'jsonp' : 'json');
+        setTimeout(update, T);
+    }, direct ? 'jsonp' : 'json').fail(function () {
+        // even if the call failed, try again.
+        // would put this in .always() and remove redundant setTimeout above,
+        // but then recursive call to update() above would lead to two timers
+        setTimeout(update, T);
+    });
 }
 
 $(function() {
