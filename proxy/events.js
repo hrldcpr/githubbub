@@ -17,7 +17,7 @@ function pipeGithubEvents(out) {
         listeners.push(out);
         if (listeners.length == 1) { // only the first listener initiates a request
             console.log('calling github api at t=' + now);
-            https.get(GITHUB_EVENTS, function (response) {
+            var request = https.request(GITHUB_EVENTS, function (response) {
                 cached = new Buffer(parseInt(response.headers['content-length']));
                 var offset = 0;
 
@@ -34,6 +34,9 @@ function pipeGithubEvents(out) {
                     listeners = [];
                 });
             });
+            request.setHeader('User-Agent',
+                              'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31');
+            request.end();
         } else console.log(' ' + listeners.length + ' listeners');
     }
 }
