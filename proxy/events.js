@@ -1,7 +1,5 @@
-var http = require('http');
-var https = require('https');
 
-var ACCESS_TOKEN = require('fs').readFileSync('access_token', 'utf-8');
+var ACCESS_TOKEN = require('fs').readFileSync('/srv/www/githubbub.com/access_token', 'utf-8');
 var GITHUB_EVENTS = 'https://api.github.com/events?access_token=' + ACCESS_TOKEN;
 var EXPIRY = 1000; // cache lasts one second
 
@@ -17,7 +15,7 @@ function pipeGithubEvents(out) {
         listeners.push(out);
         if (listeners.length == 1) { // only the first listener initiates a request
             console.log('calling github api at t=' + now);
-            var request = https.request(GITHUB_EVENTS, function (response) {
+            var request = require('https').request(GITHUB_EVENTS, function (response) {
                 cached = new Buffer(parseInt(response.headers['content-length']));
                 var offset = 0;
 
@@ -41,7 +39,7 @@ function pipeGithubEvents(out) {
     }
 }
 
-http.createServer(function(request, response) {
+require('http').createServer(function(request, response) {
     if (request.method !== 'GET' || request.url !== '/') {
         response.statusCode = 404;
         response.end();
