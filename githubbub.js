@@ -45,7 +45,7 @@ function makeDiv(event, text, url) {
     var x = Math.floor(80 * Math.random());
     var y = Math.floor(80 * Math.random());
     var bubble = $('<a href="' + url + '" class="bubble git" style="top:' + x + '%; left: ' + y + '%;">' +
-		   '<img src="' + event.actor.avatar_url + '"/>' +
+		   '<img src="' + event.actor.avatar_url + '&s=80"/>' +
 		   '<pre class="text"></pre></a>');
     bubble.find('.text').text(text);
     return bubble;
